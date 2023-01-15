@@ -1,0 +1,34 @@
+syntax = "proto3";
+
+package api;
+
+option go_package = "files/api";
+
+service FileService {
+    rpc UploadFile(stream File) returns (Empty) {}
+    rpc ListFiles(ListFilesRequest) returns (ListFilesResponse) {}
+    rpc DownloadFile(DownloadFileRequest) returns (stream DownloadFileResponse) {}
+}
+
+message File {
+    string Name = 1;
+    bytes Data = 2;
+}
+
+message Empty {
+}
+
+message ListFilesRequest {
+}
+
+message ListFilesResponse {
+    repeated string Files = 1;
+}
+
+message DownloadFileRequest {
+    string Name = 1;
+}
+
+message DownloadFileResponse {
+    bytes Data = 1;
+}
